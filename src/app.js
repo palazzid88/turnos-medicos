@@ -4,15 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 const iniPassport = require('./config/passport.config.js');
 const passport = require('passport');
+const { connectMongo } = require('./utils/utils.js');
+require('dotenv').config();
 
-
-// Conexión a la base de datos
-mongoose.connect('mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.zd7jdud.mongodb.net/?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('Conexión exitosa a la base de datos'))
-.catch(err => console.log('Error de conexión a la base de datos', err));
+// Mongo en utils/utils.js
+connectMongo()
 
 // Configuración de la ruta de inicio
 app.get('/', (req, res) => {
